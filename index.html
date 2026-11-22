@@ -109,9 +109,6 @@
           <p class="eyebrow">Waitlist</p>
           <h2 id="waitlist-h" tabindex="-1">Hear when the app is ready</h2>
           <p class="lede">We&rsquo;ll email you about the Playbook test and when the app is ready. Unsubscribe anytime. A few optional questions help us decide whether, and how, to build it.</p>
-          <div class="placeholder-note" data-stub-only data-form-placeholder="tally" role="note">
-            <strong>Stand-in form:</strong> in this preview it checks your input and stops there. Nothing is stored or sent.
-          </div>
           <div id="waitlist-tally" class="waitlist-tally" hidden>
             <p class="wl-intro">The waitlist form is hosted by Tally. It asks for your email, your consent, and a few optional questions.</p>
             <button type="button" class="btn btn-primary btn-lg" id="wl-open" aria-controls="wl-embed">Join the waitlist</button>
@@ -122,29 +119,6 @@
             <style>[data-stub-only]{display:none!important}</style>
             <p class="wl-fallback">Join the waitlist: <a href="https://tally.so/r/vXPAZX" rel="noopener">open the form on Tally</a>.</p>
           </noscript>
-          <form id="waitlist-form" class="waitlist-form" novalidate data-form-service="none" data-stub-only>
-            <label for="wl-email">Email</label>
-            <input id="wl-email" name="email" type="email" class="input" autocomplete="email" inputmode="email" required aria-describedby="email-err" placeholder="you@example.com">
-            <p id="email-err" class="error" aria-live="polite"></p>
-            <fieldset class="field">
-              <legend>What do you trade? <span class="muted">(optional)</span></legend>
-              <div class="choice-grid">
-                <label class="check"><input type="checkbox" name="trades" value="stocks"> Stocks</label>
-                <label class="check"><input type="checkbox" name="trades" value="options"> Options</label>
-                <label class="check"><input type="checkbox" name="trades" value="futures"> Futures</label>
-                <label class="check"><input type="checkbox" name="trades" value="forex"> Forex</label>
-                <label class="check"><input type="checkbox" name="trades" value="crypto"> Crypto</label>
-                <label class="check"><input type="checkbox" name="trades" value="other"> Other</label>
-              </div>
-            </fieldset>
-            <p class="check consent"><input id="wl-consent" name="consent" type="checkbox" aria-describedby="consent-err"> <label for="wl-consent">Email me about the Playbook test and when the app is ready. I can unsubscribe anytime.</label></p>
-            <p id="consent-err" class="error" aria-live="polite"></p>
-            <button type="submit" class="btn btn-primary btn-lg">Join the waitlist</button>
-          </form>
-          <div id="waitlist-status" class="stub-done" role="status" tabindex="-1" hidden data-stub-only>
-            <h3>Prototype: not submitted</h3>
-            <p>Your entry looks valid, but this is a local preview. Nothing was stored or sent anywhere, and no email will arrive. The live site uses the real signup form.</p>
-          </div>
         </div>
         <aside class="privacy" id="privacy" aria-labelledby="privacy-h">
           <h3 id="privacy-h">Privacy, in brief</h3>

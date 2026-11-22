@@ -1,5 +1,3 @@
-/* Pure helpers: search, filtering, book references and localStorage persistence.
-   Works in the browser (window.M2P) and in Node (module.exports) for tests. */
 (function (root, factory) {
   var api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
@@ -17,7 +15,6 @@
       .trim();
   }
 
-  /* Everything searchable for one playbook: titles, setups, rules, notes, etc. */
   function searchText(pb, ctx) {
     ctx = ctx || {};
     var parts = [pb.title, pb.channel, pb.author].concat(pb.tags || []);
@@ -36,7 +33,6 @@
     return normalize(parts.join(' \n '));
   }
 
-  /* All words in the query must appear somewhere (AND match). */
   function matchesQuery(pb, query, ctx) {
     var q = normalize(query);
     if (!q) return true;
@@ -62,9 +58,6 @@
     return seen.sort();
   }
 
-  /* filters: { query, tags: [], favoritesOnly: bool, type: 'all'|'long'|'short' }
-     ctx: { favorites: [ids], notes: {id: text}, userTags: {id: [tags]} }
-     Selected tags use AND: a playbook must carry every selected tag. */
   function filterPlaybooks(list, filters, ctx) {
     filters = filters || {};
     ctx = ctx || {};
@@ -82,14 +75,12 @@
     });
   }
 
-  /* Book references replace video timestamps: { ch: 'IV', p: 58, pEnd: 60 } -> "Ch. IV \u00B7 p. 58-60" */
   function formatRef(ref) {
     if (!ref || !ref.ch || !ref.p) return '';
     var pages = ref.pEnd && ref.pEnd !== ref.p ? 'pp. ' + ref.p + '\u2013' + ref.pEnd : 'p. ' + ref.p;
     return 'Ch. ' + ref.ch + ' \u00B7 ' + pages;
   }
 
-  /* Which chapter a printed page falls in, from the book's table of contents. */
   function chapterForPage(chapters, page, lastPage) {
     if (!chapters || !chapters.length || page < chapters[0].p || (lastPage && page > lastPage)) return null;
     var found = null;
@@ -97,7 +88,6 @@
     return found;
   }
 
-  /* A ref is valid when its pages exist and sit inside the chapter it names. */
   function refIsValid(pb, ref) {
     if (!ref || typeof ref.p !== 'number') return false;
     var end = ref.pEnd || ref.p;
@@ -116,7 +106,6 @@
     };
   }
 
-  /* Wraps a localStorage-like object. Falls back to memory if storage is unavailable. */
   function createStore(storage) {
     var s = storage;
     try {

@@ -1,4 +1,3 @@
-/* Library + playbook detail (hash routes), reused from the prototype. Vanilla JS, no network. */
 (function () {
   'use strict';
   var DATA = (window.PLAYBOOK_DATA && window.PLAYBOOK_DATA.playbooks) || [];

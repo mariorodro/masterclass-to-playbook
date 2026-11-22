@@ -1,12 +1,3 @@
-/* Waitlist form.
-   - Stub mode (M2P_CONFIG.tallyFormId is null): pure validation, nothing stored or sent; a valid
-     submit only shows "Prototype: not submitted".
-   - Tally mode (tallyFormId set): everything marked data-stub-only is removed and #waitlist-tally is
-     shown (intro, "Join the waitlist" button, fallback link to the hosted form). Tally's standard inline
-     embed (iframe + widget script) is loaded only when the visitor opens the waitlist: the button, a
-     click on any #waitlist link, or arriving at #waitlist. Page load alone makes no Tally request.
-     The Tally form collects the email and consent. A "Tally.FormSubmitted" message from
-     https://tally.so is counted as the "waitlist-submit" event. */
 (function (root, factory) {
   var api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
@@ -19,7 +10,6 @@
   var TALLY_ORIGIN = 'https://tally.so';
   var TALLY_WIDGET = TALLY_ORIGIN + '/widgets/embed.js';
 
-  /* Pragmatic check: one @, no spaces, a dot in the domain, sane lengths. */
   function isValidEmail(value) {
     var v = String(value == null ? '' : value).trim();
     if (v.length < 6 || v.length > 254) return false;
@@ -33,7 +23,6 @@
       /^[a-z]{2,}$/i.test(labels[labels.length - 1]);
   }
 
-  /* fields: { email, trades: [..], pay: 'yes'|'maybe'|'no'|'' , consent: bool } */
   function validate(fields) {
     fields = fields || {};
     var errors = {};
@@ -50,7 +39,6 @@
     };
   }
 
-  /* Tally form ids are short alphanumeric strings (e.g. 'w4Ab9X'). Anything else keeps the stub. */
   function validFormId(id) { return typeof id === 'string' && /^[A-Za-z0-9]{3,20}$/.test(id); }
   function mode(config) { return config && validFormId(config.tallyFormId) ? 'tally' : 'stub'; }
   function tallyEmbedUrl(id) {
@@ -62,9 +50,6 @@
     return !!ev && ev.origin === TALLY_ORIGIN && typeof ev.data === 'string' && ev.data.indexOf('Tally.FormSubmitted') !== -1;
   }
 
-  /* Tally's documented standard (inline) embed: an iframe with data-tally-src, then Tally's widget
-     script calls Tally.loadEmbeds(). If the script fails, fall back to setting src directly.
-     Called only when the visitor opens the waitlist, never on page load. Idempotent. */
   function mountTally(doc, slot, id) {
     var existing = slot.querySelector('iframe[data-tally-src]');
     if (existing) return existing;
@@ -91,7 +76,6 @@
     return iframe;
   }
 
-  /* Tally mode: swap the stub for the Tally block and wire the "open" triggers. */
   function initTally(doc, opts) {
     var id = opts.config.tallyFormId;
     Array.prototype.forEach.call(doc.querySelectorAll('[data-stub-only]'), function (el) { el.parentNode.removeChild(el); });
@@ -121,7 +105,6 @@
     return { open: open };
   }
 
-  /* Browser wiring. opts: { config, onValid (stub), onSubmitted / onOpen (tally), statusId } */
   function init(form, opts) {
     opts = opts || {};
     var doc = (form && form.ownerDocument) || opts.document;

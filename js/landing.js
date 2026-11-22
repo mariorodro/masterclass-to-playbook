@@ -1,4 +1,3 @@
-/* Landing page: renders the sample and wires the waitlist (Tally, loaded on open; local stub if no form id). */
 (function () {
   'use strict';
   var R = window.M2PRender;
@@ -10,12 +9,12 @@
 
   window.M2PWaitlist.init(document.getElementById('waitlist-form'), {
     config: window.M2P_CONFIG,
+    document: document,
     onValid: function () { window.M2PAnalytics.track('waitlist-submit-stub'); },
     onOpen: function () { window.M2PAnalytics.track('waitlist-open'); },
     onSubmitted: function () { window.M2PAnalytics.track('waitlist-submit'); }
   });
 
-  /* "sample-view" fires once, when the sample scrolls into view (in memory; also GoatCounter in the release build). */
   var sample = document.getElementById('sample');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
@@ -24,7 +23,6 @@
     io.observe(sample);
   }
 
-  /* In-page anchors: move focus to the target heading for keyboard and screen-reader users. */
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#"]:not([data-jump])');
     if (!a) return;

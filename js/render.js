@@ -1,5 +1,3 @@
-/* Shared playbook renderer (landing sample + library detail). Vanilla DOM, no innerHTML, no network.
-   Book references ("Ch. IV \u00B7 p. 58") replace the prototype's video timestamps. */
 (function () {
   'use strict';
   var M2P = window.M2P;
@@ -43,7 +41,6 @@
     toastTimer = setTimeout(function () { toastEl.hidden = true; }, 3200);
   }
 
-  /* Disclaimers: long (sample block) and short (footer + PDF). */
   var METHOD = 'How it was made: drafted with AI assistance, checked against the scan, and reviewed by the site\u2019s creator. ';
   var SHORT_DISCLAIMER = 'Educational notes only. Not investment advice. No promise of results; trading carries risk of loss. Sample summarizes Wyckoff\u2019s Studies in Tape Reading (1910), public domain in the US. No affiliation or endorsement implied. Drafted with AI assistance, checked against the scan, and reviewed by the site\u2019s creator.' +
     ' The planned app uses your own AI key, and your provider bills you directly. AI-made notes can contain mistakes, so check them against the source.';
@@ -58,7 +55,6 @@
       h('p', { class: 'small' }, METHOD, 'Read the original: ', link(), '.'));
   }
 
-  /* Source bar: what the prototype's video-player placeholder became for a book. */
   function makeSourceBar(pb) {
     var whereEl = h('span', { class: 'mono src-where', text: 'Pick a page reference' });
     var msgEl = h('span', { class: 'src-msg', text: 'Every rule links to the chapter and page it comes from.' });
@@ -94,7 +90,6 @@
     });
   }
 
-  /* opts: { level: 2 (section heading level), idPrefix: 'pb', store, notes: bool, favorite: node, title: bool } */
   function renderPlaybook(pb, opts) {
     opts = opts || {};
     var L = opts.level || 2;
@@ -195,7 +190,6 @@
     return root;
   }
 
-  /* The printable one-page sheet lives outside <main>; print CSS shows only this. */
   function renderPrintSheet(pb) {
     var ref = function (rs) { return (rs || []).map(M2P.formatRef).join('; '); };
     return h('div', { class: 'print-sheet-inner' },
